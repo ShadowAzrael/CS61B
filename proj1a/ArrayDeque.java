@@ -71,9 +71,11 @@ public class ArrayDeque<T> {
         if(isSparse()){
             downSize();
         }
+        if(isEmpty()){
+            return null;
+        }
         nextFirst=plusOne(nextFirst);
         T toRemove=items[nextFirst];
-        items[nextFirst]=null;
         if(!isEmpty()){
             size-=1;
         }
@@ -83,9 +85,11 @@ public class ArrayDeque<T> {
         if(isSparse()){
             downSize();
         }
+        if (isEmpty()){
+            return null;
+        }
         nextLast=plusOne(nextLast);
         T toRemove=items[nextLast];
-        items[nextLast]=null;
         if(!isEmpty()){
             size-=1;
         }
