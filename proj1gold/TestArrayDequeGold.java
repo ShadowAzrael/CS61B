@@ -18,8 +18,8 @@ public class TestArrayDequeGold {
         for (int i = 0; i<10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("Oh noooo!\nThis is bad in addLast():\n " +
-                    "Random number" + actual +"not equal to" + expected + "!", expected, actual);
+            assertEquals("addLast(" +
+                    actual  + ")\n", expected, actual);
         }
 
         // addFirst
@@ -31,8 +31,8 @@ public class TestArrayDequeGold {
         for (int i=0; i<10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("Oh noooo!\nThis is bad in addFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
+            assertEquals("addFirst(" +
+                            actual  + ")\n",
                     expected, actual);
         }
 
@@ -46,15 +46,13 @@ public class TestArrayDequeGold {
         for (int i=0; i<10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("Oh noooo!\nThis is bad in removeFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
+            assertEquals("removeFirst()\n",
                     expected, actual);
         }
         for (int i=0; i<10; i++) {
             int actual = actualList.get(i);
             int expected = expectedList.get(i);
-            assertEquals("Oh noooo!\nThis is bad in removeFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
+            assertEquals("removeFirst()\n",
                     expected, actual);
         }
 
@@ -68,12 +66,10 @@ public class TestArrayDequeGold {
         }
         int actual = ads.size();
         int expected = sad.size();
-        assertEquals("Oh noooo!\nThis is bad in removeLast():\n   actual size " + actual
-                        + " not equal to " + expected + "!",
+        assertEquals("removeLast()",
                 expected, actual);
         for (int i=0; i<10; i++) {
-            assertEquals("Oh noooo!\nThis is bad in removeLast():\n   Random number " + actualList.get(i)
-                            + " not equal to " +  expectedList.get(i) + "!",
+            assertEquals("removeLast()",
                     expectedList.get(i), actualList.get(i));
         }
     }
