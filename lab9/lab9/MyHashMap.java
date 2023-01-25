@@ -79,7 +79,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             resize(size * 2);
         }
         int hashcode = hash(key);
-        if (!buckets[hashcode].containsKey(key)) size++;
+        if (!buckets[hashcode].containsKey(key)) {
+            size++;
+        }
         buckets[hashcode].put(key, value);
     }
 

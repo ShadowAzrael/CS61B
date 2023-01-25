@@ -45,10 +45,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      *  or null if this map contains no mapping for the key.
      */
     private V getHelper(K key, Node p) {
-        if (p == null) return null;
-        if (p.key.compareTo(key) == 0) return p.value;
-        else if (p.key.compareTo(key) > 0) return getHelper(key, p.left);
-        else return getHelper(key, p.right);
+        if (p == null) {
+            return null;
+        }
+        if (p.key.compareTo(key) == 0) {
+            return p.value;
+        }
+        else if (p.key.compareTo(key) > 0) {
+            return getHelper(key, p.left);
+        }
+        else {
+            return getHelper(key, p.right);
+        }
     }
 
     /** Returns the value to which the specified key is mapped, or null if this
@@ -66,9 +74,15 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         if (p == null) {
             return new Node(key, value);
         }
-        if (p.key.compareTo(key) == 0) p.value = value;
-        else if (p.key.compareTo(key) > 0) p.left = putHelper(key, value, p.left);
-        else p.right = putHelper(key, value, p.right);
+        if (p.key.compareTo(key) == 0) {
+            p.value = value;
+        }
+        else if (p.key.compareTo(key) > 0) {
+            p.left = putHelper(key, value, p.left);
+        }
+        else {
+            p.right = putHelper(key, value, p.right);
+        }
         return p;
     }
 
@@ -130,8 +144,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         }else if (cmp > 0) {
             p.left = remove(key, p.left);
         }else {
-            if (p.left == null) return p.right;
-            if (p.right == null) return p.left;
+            if (p.left == null) {
+                return p.right;
+            }
+            if (p.right == null) {
+                return p.left;
+            }
             Node t = p;
             p = min(t.right);
             p.right = removeMin(key, t.right);
