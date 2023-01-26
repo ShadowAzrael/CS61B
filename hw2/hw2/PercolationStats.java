@@ -13,15 +13,14 @@ public class PercolationStats {
         }
         this.T = T;
         this.openSiteFractions = new double[T];
-        for (int i = 0; i < T; T++) {
+        for (int i = 0; i < T; i++) {
             Percolation percolation = pf.make(N);
             while (!percolation.percolates()) {
-                int x, y;
-                do {
-                    x = StdRandom.uniform(N);
-                    y = StdRandom.uniform(N);
-                } while (percolation.isOpen(x, y));
-                percolation.open(x, y);
+                int x = StdRandom.uniform(N);
+                int y = StdRandom.uniform(N);
+                if (!percolation.isOpen(x, y)){
+                    percolation.open(x, y);
+                }
             }
             openSiteFractions[i] = (double) percolation.numberOfOpenSites() / (N * N);
         }
