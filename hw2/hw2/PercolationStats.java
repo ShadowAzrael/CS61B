@@ -18,7 +18,7 @@ public class PercolationStats {
             while (!percolation.percolates()) {
                 int x = StdRandom.uniform(N);
                 int y = StdRandom.uniform(N);
-                if (!percolation.isOpen(x, y)){
+                if (!percolation.isOpen(x, y)) {
                     percolation.open(x, y);
                 }
             }
