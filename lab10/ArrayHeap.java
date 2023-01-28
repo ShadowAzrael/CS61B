@@ -111,7 +111,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        while (index > 1 && min(index, parentIndex(index)) == index) {
+        while (inBounds(parentIndex(index)) && min(index, parentIndex(index)) == index) {
             swap(index, parentIndex(index));
             index = parentIndex(index);
         }
@@ -126,7 +126,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         /** TODO: Your code here. */
         int minChild = min(leftIndex(index), rightIndex(index));
-        if (min(index, minChild) == minChild) {
+        if (inBounds(minChild) && min(index, minChild) == minChild) {
             swap(index, minChild);
             sink(minChild);
         }
@@ -174,9 +174,15 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
+        if (size == 0) {
+            throw new IllegalArgumentException();
+        }
         T retValue = peek();
         swap(1, size);
         size--;
+        if (size == 0) {
+            return retValue;
+        }
         sink(1);
         contents[size + 1] = null;
         return retValue;
