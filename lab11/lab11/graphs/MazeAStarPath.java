@@ -26,16 +26,13 @@ public class MazeAStarPath extends MazeExplorer {
         t = maze.xyTo1D(targetX, targetY);
         distTo[s] = 0;
         edgeTo[s] = s;
-        cmp = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                if(h(o1) + distTo[o1] < h(o2) + distTo[o2]){
-                    return -1;
-                }else if (h(o1) + distTo[o1] == h(o2) + distTo[o2]){
-                    return 0;
-                }else {
-                    return 1;
-                }
+        cmp = (o1, o2) -> {
+            if(h(o1) + distTo[o1] < h(o2) + distTo[o2]){
+                return -1;
+            }else if (h(o1) + distTo[o1] == h(o2) + distTo[o2]){
+                return 0;
+            }else {
+                return 1;
             }
         };
         pq = new MinPQ<>(cmp);
