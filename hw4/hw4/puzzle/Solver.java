@@ -33,7 +33,7 @@ public class Solver {
         while(!temp.ws.isGoal()){
             Iterable<WorldState> i = temp.ws.neighbors();
             moves = count(temp) + 1;
-            for (WorldState ws :i){
+            for (WorldState ws : i){
                 if(temp.prev != null){
                     if(temp.prev.ws.equals(ws)){
                         continue;
