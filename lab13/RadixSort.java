@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Class for doing Radix sort
@@ -21,50 +19,61 @@ public class RadixSort {
      */
     public static String[] sort(String[] asciis) {
         // TODO: Implement LSD Sort
-        List<String> nonBlank = new ArrayList<String>();
-        for(String s: asciis) {
-            if (!s.trim().isEmpty()) {
-                nonBlank.add(s);
+        int maxLen = 0;
+        for (String s : asciis) {
+            if (s.length() > maxLen) {
+                maxLen = s.length();
             }
         }
-        String[] arr = (String[]) nonBlank.toArray( new String[nonBlank.size()] );
 
-        int W = findMax(asciis);
-        int N = asciis.length;
-        String[] temp = new String[asciis.length];
-
-        for(int d = W - 1; d >= 0; d--){
-            int[] count  = new int[256];
-            for(int i = 0; i < N; i++){
-                if(d > arr[i].length() - 1){
-                    count[1+1]++;
-                }else{
-                    count[arr[i].charAt(d) + 1]++;
-                }
-            }
-            for(int k = 1; k < 256; k++){
-                count[k] = count[k] + count[k - 1];
-            }
-            for(int i = 0; i < N; i++){
-                if(d > arr[i].length() - 1){
-                    temp[count[1]++] = arr[i];
-                }else{
-                    temp[count[arr[i].charAt(d)]++] = arr[i];
-                }
-            }
-            for(int i = 0; i < N; i++){
-                arr[i] = temp[i];
-            }
+        String[] res = Arrays.copyOf(asciis, asciis.length);
+        for (int i = maxLen - 1; i >= 0; i--) {
+            sortHelperLSD(res, i);
         }
-        return temp;
+        return res;
     }
 
-    private static int findMax(String[] a){
-        int max = Integer.MIN_VALUE;
-        for(int i = 0; i < a.length; i++){
-            max = max > a[i].length() ? max : a[i].length();
+    /**
+     * LSD helper method that performs a destructive counting sort the array of
+     * Strings based off characters at a specific index.
+     * @param asciis Input array of Strings
+     * @param index The position to sort the Strings on.
+     */
+    private static void sortHelperLSD(String[] asciis, int index) {
+        // Optional LSD helper method for required LSD radix sort
+        int R = 256;
+        int[] counts = new int[R + 1];
+        for (String item : asciis) {
+            int c = charAtOrMinChar(index, item);
+            counts[c]++;
         }
-        return max;
+
+        int[] starts = new int[R + 1];
+        int pos = 0;
+        for (int i = 0; i < asciis.length; i++) {
+            starts[i] = pos;
+            pos += counts[i];
+        }
+
+        String[] sorted = new String[asciis.length];
+        for (int i = 0; i < asciis.length; i++){
+            String item = asciis[i];
+            int c = charAtOrMinChar(index, item);
+            int place = starts[c];
+            sorted[place] = item;
+            starts[c]++;
+        }
+
+        for (int i = 0; i < asciis.length; i++) {
+            asciis[i] = sorted[i];
+        }
+    }
+
+    private static int charAtOrMinChar(int index, String item) {
+        if (index < item.length() && index >= 0) {
+            return item.charAt(index) + 1;
+        }
+        return 0;
     }
 
     /**
