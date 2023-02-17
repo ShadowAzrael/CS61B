@@ -1,6 +1,8 @@
 package lab14;
 
-public class AcceleratingSawToothGenerator {
+import lab14lib.Generator;
+
+public class AcceleratingSawToothGenerator implements Generator {
     private int state;
     private int period;
     private double factor;
